@@ -1,4 +1,4 @@
-const API = 'http://localhost:5000/api';
+const API = 'http://localhost:8000/api';
 
 export async function factCheck(query) {
   const res = await fetch(`${API}/factcheck/search?q=${encodeURIComponent(query)}`);
