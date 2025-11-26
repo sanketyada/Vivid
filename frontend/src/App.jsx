@@ -12,11 +12,33 @@ function App() {
     getClaims().then((r) => setClaims(r.claims || []));
   }, []);
 
-  const onSearch = async () => {
-    const res = await factCheck(q);
-    setResults(res.claims || []);
+  useEffect(() => {
+    if (menuOpen) document.body.classList.add("menu-open");
+    else document.body.classList.remove("menu-open");
+    return () => document.body.classList.remove("menu-open");
+  }, [menuOpen]);
+
+  const runSearch = async () => {
+    if (!q || !q.trim()) return;
+    setLoading(true);
+    setSearched(true);
+    try {
+      const res = await factCheck(q);
+      setResults(res.claims || []);
+    } catch (err) {
+      console.error("Search error", err);
+      setResults([]);
+    } finally {
+      setLoading(false);
+    }
   };
   //Request Section
+
+  const onKeyDown = (e) => {
+    if (e.key === "Enter") runSearch();
+  };
+
+  const visibleClaims = (claims || []).slice(0, 5);
 
   return (
     <div style={{ padding: 20 }}>
@@ -60,3 +82,4 @@ function App() {
 }
 
 export default App;
+
