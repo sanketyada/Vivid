@@ -17,6 +17,7 @@ import {
 } from "react-icons/fa";
 import { FiX, FiChevronDown, FiChevronRight } from "react-icons/fi";
 import "../styles/navbar.css";
+import { Link } from "react-router";
 
 export default function Sidebar({ open, onClose }) {
   const [factOpen, setFactOpen] = useState(true);
@@ -98,10 +99,12 @@ export default function Sidebar({ open, onClose }) {
             )}
           </div>
 
-          <a className="nav-item" href="#verified">
+          <Link 
+          to={"/pib"}
+          className="nav-item" href="#verified">
             <FaCheckCircle className="nav-ico" />
             <span>PIB Verified</span>
-          </a>
+          </Link>
 
           <a className="nav-item" href="#live">
             <FaComments className="nav-ico" />
